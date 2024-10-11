@@ -7,8 +7,9 @@
 /dataSources/
 /dataSources.local.xml
 # Pycharm Things
-/.idea/misc.xml
-/.idea/modules.xml
-/.idea/NN-ML-zadanka.iml
-/.idea/inspectionProfiles
-/.idea/vcs.xml
+/misc.xml
+/modules.xml
+/NN-ML-zadanka.iml
+/inspectionProfiles/profiles_settings.xml
+/inspectionProfiles/Project_Default.xml
+/vcs.xml
