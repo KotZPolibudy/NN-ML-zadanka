@@ -6,10 +6,4 @@
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
-# Pycharm Things
-/misc.xml
-/modules.xml
-/NN-ML-zadanka.iml
-/inspectionProfiles/profiles_settings.xml
-/inspectionProfiles/Project_Default.xml
-/vcs.xml
+
