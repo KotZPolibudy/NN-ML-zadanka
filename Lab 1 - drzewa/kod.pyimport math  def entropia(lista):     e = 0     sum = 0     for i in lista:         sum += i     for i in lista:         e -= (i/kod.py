@@ -1,7 +1,7 @@
 import math
 import treelib
 
-// 1. entropy calculation
+# 1. entropy calculation
 def entropia(lista):
     e = 0
     sum = 0
