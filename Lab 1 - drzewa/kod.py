@@ -54,6 +54,13 @@ def prepare_pandas_df(path):
     return data
 
 
+def prepare_pandas_df_for_basic_problem(path):
+    data = pandas.read_csv(path)
+    data = data.drop(['PassengerId', 'Name'], axis=1)
+    data['Age'] = pandas.cut(data['Age'], bins=[0, 20, 40, 100], labels=['young', 'middle', 'old'], right=True)
+    return data
+
+
 def possible_values(df, column_name):
     return df[column_name].unique().tolist()
 
@@ -62,10 +69,10 @@ def get_column_names(df):
     return df.columns.tolist()
 
 
-def filterCount(df, column_name, value):
+def filter_count(df, column_name, value):
     filtered_df = df[df[column_name] == value]
-    print(filtered_df)
-    print(len(filtered_df))
+    # print(filtered_df)
+    # print(len(filtered_df))
     p = int(filtered_df['Survived'].sum())
     ile_wszystkich = len(filtered_df)
     # zawsze zwraca parę [przeżyło, nie-przeżyło]
@@ -75,7 +82,7 @@ def filterCount(df, column_name, value):
 def split(df, column_name):
     l = []
     for val in possible_values(df, column_name):
-        l.append(filterCount(df, column_name, val))
+        l.append(filter_count(df, column_name, val))
     return l
 
 
@@ -86,7 +93,8 @@ dane = prepare_pandas_df("titanic-homework.csv")
 print(dane)
 print(get_column_names(dane))
 print(possible_values(dane, "Pclass"))
-print(filterCount(dane, "Sex", "male"))
-
-# print(split(dane, "Sex"))
+print(filter_count(dane, "Sex", "male"))
+print(split(dane, "Pclass"))
+dane2 = prepare_pandas_df_for_basic_problem("titanic-homework.csv")
+print(dane2)
 
