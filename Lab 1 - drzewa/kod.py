@@ -1,5 +1,6 @@
 import math
 import treelib
+import pandas
 
 
 # entropy calculation
@@ -47,5 +48,32 @@ def gain_ratio(dane):
     return gr
 
 
+def prepare_pandas_df(path):
+    data = pandas.read_csv(path)
+    data = data.drop(['PassengerId', 'Name'], axis=1)
+    return data
+
+
+def possible_values(df, column_name):
+    return df[column_name].unique().tolist()
+
+
+def get_column_names(df):
+    return df.columns.tolist()
+
+
+def filtercount(df, column_name, value):
+    filtered_df = df[df[column_name] == value]
+    # print(filtered_df)
+    return filtered_df['Survived'].sum()
+
+
 
 print(gain_ratio([[0, 2], [1, 1], [4, 2]]))
+
+dane = prepare_pandas_df("titanic-homework.csv")
+print(dane)
+print(get_column_names(dane))
+print(possible_values(dane, "Pclass"))
+print(filtercount(dane, "Sex", "male"))
+
