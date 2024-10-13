@@ -3,7 +3,6 @@ import treelib
 import pandas
 
 
-# entropy calculation
 def entropy(lista):
     e = 0
     suma = sum(lista)
