@@ -62,10 +62,21 @@ def get_column_names(df):
     return df.columns.tolist()
 
 
-def filtercount(df, column_name, value):
+def filterCount(df, column_name, value):
     filtered_df = df[df[column_name] == value]
-    # print(filtered_df)
-    return filtered_df['Survived'].sum()
+    print(filtered_df)
+    print(len(filtered_df))
+    p = int(filtered_df['Survived'].sum())
+    ile_wszystkich = len(filtered_df)
+    # zawsze zwraca parę [przeżyło, nie-przeżyło]
+    return [p, ile_wszystkich - p]
+
+
+def split(df, column_name):
+    l = []
+    for val in possible_values(df, column_name):
+        l.append(filterCount(df, column_name, val))
+    return l
 
 
 
@@ -75,5 +86,7 @@ dane = prepare_pandas_df("titanic-homework.csv")
 print(dane)
 print(get_column_names(dane))
 print(possible_values(dane, "Pclass"))
-print(filtercount(dane, "Sex", "male"))
+print(filterCount(dane, "Sex", "male"))
+
+# print(split(dane, "Sex"))
 
