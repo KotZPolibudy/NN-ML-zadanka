@@ -8,7 +8,7 @@ def entropy(lista):
     suma = sum(lista)
     for i in lista:
         if i != 0:
-            e -= (i / suma) * math.log(i / suma, 2)
+            e = -1 * (i / suma) * math.log(i / suma, 2)
     return e
 
 
@@ -65,7 +65,7 @@ def possible_values(df, column_name):
 
 
 def get_column_names(df):
-    return df.columns.tolist()
+    return [col for col in df.columns if col != "Survived"]
 
 
 def filter_count(df, column_name, value):
@@ -93,7 +93,31 @@ print(dane)
 print(get_column_names(dane))
 print(possible_values(dane, "Pclass"))
 print(filter_count(dane, "Sex", "male"))
-print(split(dane, "Pclass"))
+sp = split(dane, "Pclass")
+print(sp)
 dane2 = prepare_pandas_df_for_basic_problem("titanic-homework.csv")
 print(dane2)
+sp = split(dane2, "Pclass")
+print(sp)
+igsp = information_gain(sp)
+print(igsp)
+
+print(information_gain(split(dane2, "Pclass")))
+print(information_gain(split(dane2, "Sex")))
+print(information_gain(split(dane2, "Age")))
+print(information_gain(split(dane2, "SibSp")))
+print(information_gain(split(dane2, "Parch")))
+
+print(split(dane2, "Age"))
+
+
+columns = get_column_names(dane2)
+pomL = []
+for column in columns:
+    pomL.append([information_gain(split(dane2, column)), column])
+print(pomL)
+
+
+
+
 
