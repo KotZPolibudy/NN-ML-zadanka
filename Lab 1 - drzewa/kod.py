@@ -1,5 +1,5 @@
 import math
-from treelib import Node, Tree
+from treelib import Tree
 import pandas
 
 
@@ -23,6 +23,7 @@ def conditional_entropy(dane):
         ce += e * sum(i) / ile
     return ce
 
+
 # information gain calculation
 def information_gain(dane):
     y = 0
@@ -34,6 +35,7 @@ def information_gain(dane):
 
     return ig
 
+
 # gain ratio calculation
 def gain_ratio(dane):
     ig = information_gain(dane)
@@ -43,7 +45,7 @@ def gain_ratio(dane):
         ile += sum(i)
     for i in dane:
         ii -= (sum(i) / ile) * math.log(sum(i) / ile, 2)
-    gr = ig/ii if ii != 0 else 0  # dodałem bo dzielenie przez zero -Miau
+    gr = ig / ii if ii != 0 else 0  # dodałem bo dzielenie przez zero -Miau
     return gr
 
 
@@ -85,29 +87,53 @@ def split(df, column_name):
     return l
 
 
-def build_tree(df, tree, columns, parent=None):
-    best_gain = -1
+def build_tree(df, tree, columns, parent=None, parent_id="root"):
+    best_gain = 0.0
     best_column = None
+
     for column in columns:
         ig = information_gain(split(df, column))
         if ig > best_gain:
             best_gain = ig
             best_column = column
-    if best_gain is None or best_gain == 0 or len(columns) == 0:
+
+    print(best_gain, columns)  # bo nie wiem ktory z warunkow wsm sprawdzać
+    # no-infinite-recursion-pls
+    if best_gain == 0 or len(columns) == 0:
         return
+
     remaining_columns = columns.copy()
     remaining_columns.remove(best_column)
-    tree.create_node(best_column, best_column, parent=parent)
-    # Recursively build the tree
+
+    # dawalem best_column jako id, ale robilo duplikaty, co ma sens, wiec musi tak żeby robić unikalne id
+    node_id = f"{best_column}_{parent_id}"
+
+    # Tu dodaje node do drzewa
+    tree.create_node(best_column, node_id, parent=parent)
+
+    # A tu rekurencja
     for val in possible_values(df, best_column):
         filtered_df = df[df[best_column] == val]
-        build_tree(filtered_df, tree, remaining_columns, best_column)
-# Prepare dataset and build decision tree
+        child_id = f"{node_id}_{val}"
+        build_tree(filtered_df, tree, remaining_columns, node_id, child_id)
+
+
+# Driver code, do testowania
 dane = prepare_pandas_df_for_basic_problem("titanic-homework.csv")
 decision_tree = Tree()
 columns = get_column_names(dane)
 build_tree(dane, decision_tree, columns)
 decision_tree.show()
+
+# jak to wyprintowac ładniej?
+# decision_tree.show(line_type='ascii')
+# decision_tree.show(line_type='ascii-ex')
+# decision_tree.show(line_type='ascii-exr')
+# decision_tree.show(line_type='ascii-em')
+# decision_tree.show(line_type='ascii-emv')
+# decision_tree.show(line_type='ascii-emh')
+
+
 """
 print(gain_ratio([[0, 2], [1, 1], [4, 2]]))
 dane = prepare_pandas_df("titanic-homework.csv")
@@ -144,3 +170,6 @@ print("===============TREE=============")
 """
 
 
+byte_string = b'Sex\n\xe2\x94\x9c\xe2\x94\x80\xe2\x94\x80 Pclass\n\xe2\x94\x82   \xe2\x94\x9c\xe2\x94\x80\xe2\x94\x80 Age\n\xe2\x94\x82   \xe2\x94\x82   \xe2\x94\x9c\xe2\x94\x80\xe2\x94\x80 SibSp\n\xe2\x94\x82   \xe2\x94\x82   \xe2\x94\x94\xe2\x94\x80\xe2\x94\x80 SibSp\n\xe2\x94\x82   \xe2\x94\x9c\xe2\x94\x80\xe2\x94\x80 Age\n\xe2\x94\x82   \xe2\x94\x94\xe2\x94\x80\xe2\x94\x80 Parch\n\xe2\x94\x82       \xe2\x94\x94\xe2\x94\x80\xe2\x94\x80 Age\n\xe2\x94\x94\xe2\x94\x80\xe2\x94\x80 SibSp\n    \xe2\x94\x9c\xe2\x94\x80\xe2\x94\x80 Age\n    \xe2\x94\x94\xe2\x94\x80\xe2\x94\x80 Pclass\n        \xe2\x94\x94\xe2\x94\x80\xe2\x94\x80 Parch\n'
+decoded_string = byte_string.decode('utf-8')
+print(decoded_string)
