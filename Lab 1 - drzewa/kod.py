@@ -1,5 +1,5 @@
 import math
-import treelib
+from treelib import Node, Tree
 import pandas
 
 
@@ -8,7 +8,7 @@ def entropy(lista):
     suma = sum(lista)
     for i in lista:
         if i != 0:
-            e = -1 * (i / suma) * math.log(i / suma, 2)
+            e -= (i / suma) * math.log(i / suma, 2)
     return e
 
 
@@ -43,7 +43,7 @@ def gain_ratio(dane):
         ile += sum(i)
     for i in dane:
         ii -= (sum(i) / ile) * math.log(sum(i) / ile, 2)
-    gr = ig/ii
+    gr = ig/ii if ii != 0 else 0  # dodałem bo dzielenie przez zero -Miau
     return gr
 
 
@@ -85,9 +85,31 @@ def split(df, column_name):
     return l
 
 
-
+def build_tree(df, tree, columns, parent=None):
+    best_gain = -1
+    best_column = None
+    for column in columns:
+        ig = information_gain(split(df, column))
+        if ig > best_gain:
+            best_gain = ig
+            best_column = column
+    if best_gain is None or best_gain == 0 or len(columns) == 0:
+        return
+    remaining_columns = columns.copy()
+    remaining_columns.remove(best_column)
+    tree.create_node(best_column, best_column, parent=parent)
+    # Recursively build the tree
+    for val in possible_values(df, best_column):
+        filtered_df = df[df[best_column] == val]
+        build_tree(filtered_df, tree, remaining_columns, best_column)
+# Prepare dataset and build decision tree
+dane = prepare_pandas_df_for_basic_problem("titanic-homework.csv")
+decision_tree = Tree()
+columns = get_column_names(dane)
+build_tree(dane, decision_tree, columns)
+decision_tree.show()
+"""
 print(gain_ratio([[0, 2], [1, 1], [4, 2]]))
-
 dane = prepare_pandas_df("titanic-homework.csv")
 print(dane)
 print(get_column_names(dane))
@@ -112,12 +134,13 @@ print(split(dane2, "Age"))
 
 
 columns = get_column_names(dane2)
+print(columns)
 pomL = []
 for column in columns:
     pomL.append([information_gain(split(dane2, column)), column])
 print(pomL)
 
-
-
+print("===============TREE=============")
+"""
 
 
