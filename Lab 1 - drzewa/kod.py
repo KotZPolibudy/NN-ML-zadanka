@@ -1,8 +1,6 @@
 import math
 from treelib import Tree
 import pandas
-import sys
-from io import StringIO
 
 
 def entropy(lista):
@@ -47,7 +45,7 @@ def gain_ratio(dane):
         ile += sum(i)
     for i in dane:
         ii -= (sum(i) / ile) * math.log(sum(i) / ile, 2)
-    gr = ig / ii if ii != 0 else 0  # dodałem bo dzielenie przez zero -Miau
+    gr = ig / ii if ii != 0 else 0
     return gr
 
 
@@ -65,7 +63,7 @@ def prepare_pandas_df_for_basic_problem(path):
 
 
 def possible_values(df, column_name):
-    return df[column_name].unique().tolist()
+    return sorted(df[column_name].unique().tolist())
 
 
 def get_column_names(df):
@@ -120,84 +118,49 @@ def build_tree(df, tree, columns, parent=None, parent_id="root"):
         build_tree(filtered_df, tree, remaining_columns, node_id, child_id)
 
 
+def build_tree2(df, tree, columns, parent=None, parent_id="root"):
+
+    # Jeśli decyzja jest 100% pewna, to liść
+    if len(df['Survived'].unique()) == 1:
+        decision = df['Survived'].values[0]
+        tree.create_node(f"{decision}", parent_id, parent=parent)
+        return
+
+    best_gain = 0.0
+    best_column = None
+
+    for column in columns:
+        ig = information_gain(split(df, column))
+        if ig > best_gain:
+            best_gain = ig
+            best_column = column
+
+    if best_gain == 0 or len(columns) == 0:
+        return
+
+    remaining_columns = columns.copy()
+    remaining_columns.remove(best_column)
+
+
+    node_id = f"{best_column}_{parent_id}"
+
+    tree.create_node(best_column, node_id, parent=parent)
+
+    for val in possible_values(df, best_column):
+        filtered_df = df[df[best_column] == val]
+        child_id = f"{node_id}_{val}"
+        build_tree2(filtered_df, tree, remaining_columns, node_id, child_id)
+
+
+
+
 # Driver code, do testowania
 dane = prepare_pandas_df_for_basic_problem("titanic-homework.csv")
 decision_tree = Tree()
 columns = get_column_names(dane)
 build_tree(dane, decision_tree, columns)
-# decision_tree.show()
 
-# jak to wyprintowac ładniej?
-# decision_tree.show(line_type='ascii')
-# decision_tree.show(line_type='ascii-ex')
-# decision_tree.show(line_type='ascii-exr')
-# decision_tree.show(line_type='ascii-em')
-# decision_tree.show(line_type='ascii-emv')
-# decision_tree.show(line_type='ascii-emh')
+a = decision_tree.show(stdout=False)
+print(a)
 
-
-"""
-print(gain_ratio([[0, 2], [1, 1], [4, 2]]))
-dane = prepare_pandas_df("titanic-homework.csv")
-print(dane)
-print(get_column_names(dane))
-print(possible_values(dane, "Pclass"))
-print(filter_count(dane, "Sex", "male"))
-sp = split(dane, "Pclass")
-print(sp)
-dane2 = prepare_pandas_df_for_basic_problem("titanic-homework.csv")
-print(dane2)
-sp = split(dane2, "Pclass")
-print(sp)
-igsp = information_gain(sp)
-print(igsp)
-
-print(information_gain(split(dane2, "Pclass")))
-print(information_gain(split(dane2, "Sex")))
-print(information_gain(split(dane2, "Age")))
-print(information_gain(split(dane2, "SibSp")))
-print(information_gain(split(dane2, "Parch")))
-
-print(split(dane2, "Age"))
-
-
-columns = get_column_names(dane2)
-print(columns)
-pomL = []
-for column in columns:
-    pomL.append([information_gain(split(dane2, column)), column])
-print(pomL)
-
-print("===============TREE=============")
-
-
-byte_string = b'Sex\n\xe2\x94\x9c\xe2\x94\x80\xe2\x94\x80 Pclass\n\xe2\x94\x82   \xe2\x94\x9c\xe2\x94\x80\xe2\x94\x80 Age\n\xe2\x94\x82   \xe2\x94\x82   \xe2\x94\x9c\xe2\x94\x80\xe2\x94\x80 SibSp\n\xe2\x94\x82   \xe2\x94\x82   \xe2\x94\x94\xe2\x94\x80\xe2\x94\x80 SibSp\n\xe2\x94\x82   \xe2\x94\x9c\xe2\x94\x80\xe2\x94\x80 Age\n\xe2\x94\x82   \xe2\x94\x94\xe2\x94\x80\xe2\x94\x80 Parch\n\xe2\x94\x82       \xe2\x94\x94\xe2\x94\x80\xe2\x94\x80 Age\n\xe2\x94\x94\xe2\x94\x80\xe2\x94\x80 SibSp\n    \xe2\x94\x9c\xe2\x94\x80\xe2\x94\x80 Age\n    \xe2\x94\x94\xe2\x94\x80\xe2\x94\x80 Pclass\n        \xe2\x94\x94\xe2\x94\x80\xe2\x94\x80 Parch\n'
-decoded_string = byte_string.decode('utf-8')
-print(decoded_string)
-
-"""
-
-def print_the_tree(tree):
-    # Create a StringIO object to capture the output
-    buffer = StringIO()
-
-    # Redirect stdout to the buffer
-    old_stdout = sys.stdout
-    sys.stdout = buffer
-
-    try:
-        # Show the tree, capturing the output in the buffer
-        tree.show()
-    finally:
-        # Restore the original stdout no matter what
-        sys.stdout = old_stdout
-
-    # Get the captured output
-    output = buffer.getvalue()
-
-    # Print the output directly
-    print(output)
-
-
-print_the_tree(decision_tree)
 
