@@ -1,6 +1,8 @@
 import math
 from treelib import Tree
 import pandas
+import sys
+from io import StringIO
 
 
 def entropy(lista):
@@ -97,7 +99,7 @@ def build_tree(df, tree, columns, parent=None, parent_id="root"):
             best_gain = ig
             best_column = column
 
-    print(best_gain, columns)  # bo nie wiem ktory z warunkow wsm sprawdzać
+    # print(best_gain, columns)
     # no-infinite-recursion-pls
     if best_gain == 0 or len(columns) == 0:
         return
@@ -123,7 +125,7 @@ dane = prepare_pandas_df_for_basic_problem("titanic-homework.csv")
 decision_tree = Tree()
 columns = get_column_names(dane)
 build_tree(dane, decision_tree, columns)
-decision_tree.show()
+# decision_tree.show()
 
 # jak to wyprintowac ładniej?
 # decision_tree.show(line_type='ascii')
@@ -167,9 +169,35 @@ for column in columns:
 print(pomL)
 
 print("===============TREE=============")
-"""
 
 
 byte_string = b'Sex\n\xe2\x94\x9c\xe2\x94\x80\xe2\x94\x80 Pclass\n\xe2\x94\x82   \xe2\x94\x9c\xe2\x94\x80\xe2\x94\x80 Age\n\xe2\x94\x82   \xe2\x94\x82   \xe2\x94\x9c\xe2\x94\x80\xe2\x94\x80 SibSp\n\xe2\x94\x82   \xe2\x94\x82   \xe2\x94\x94\xe2\x94\x80\xe2\x94\x80 SibSp\n\xe2\x94\x82   \xe2\x94\x9c\xe2\x94\x80\xe2\x94\x80 Age\n\xe2\x94\x82   \xe2\x94\x94\xe2\x94\x80\xe2\x94\x80 Parch\n\xe2\x94\x82       \xe2\x94\x94\xe2\x94\x80\xe2\x94\x80 Age\n\xe2\x94\x94\xe2\x94\x80\xe2\x94\x80 SibSp\n    \xe2\x94\x9c\xe2\x94\x80\xe2\x94\x80 Age\n    \xe2\x94\x94\xe2\x94\x80\xe2\x94\x80 Pclass\n        \xe2\x94\x94\xe2\x94\x80\xe2\x94\x80 Parch\n'
 decoded_string = byte_string.decode('utf-8')
 print(decoded_string)
+
+"""
+
+def print_the_tree(tree):
+    # Create a StringIO object to capture the output
+    buffer = StringIO()
+
+    # Redirect stdout to the buffer
+    old_stdout = sys.stdout
+    sys.stdout = buffer
+
+    try:
+        # Show the tree, capturing the output in the buffer
+        tree.show()
+    finally:
+        # Restore the original stdout no matter what
+        sys.stdout = old_stdout
+
+    # Get the captured output
+    output = buffer.getvalue()
+
+    # Print the output directly
+    print(output)
+
+
+print_the_tree(decision_tree)
+
