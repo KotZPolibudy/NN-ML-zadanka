@@ -121,7 +121,6 @@ def build_tree(df, tree, columns, parent=None, parent_id="root"):
 def build_tree_with_decision(df, tree, columns, parent=None, parent_id="root"):
     # Jeżeli mamy pewną decyzję, to dodajemy liść z tą decyzją
     if len(df['Survived'].unique()) == 1:
-        # decision = "Survived" if df['Survived'].values[0] == 1 else "Dead"
         count_survived = len(df[df['Survived'] == 1])
         count_dead = len(df[df['Survived'] == 0])
         if df['Survived'].values[0] == 1:
@@ -156,7 +155,10 @@ def build_tree_with_decision(df, tree, columns, parent=None, parent_id="root"):
     # Zliczamy parametry w danym węźle i dodajemy go do drzewa
     count_survived = len(df[df['Survived'] == 1])
     count_dead = len(df[df['Survived'] == 0])
-    tree.create_node(f"{best_column} (Survived: {count_survived}, Dead: {count_dead})", node_id, parent=parent)
+
+    # Tutaj dodajemy do drzewa właśnie przetwarzany węzeł
+    param = parent_id.split('_')[-1]
+    tree.create_node(f"{param} - {best_column} (Survived: {count_survived}, Dead: {count_dead})", node_id, parent=parent)
 
     # Rekurencyjnie budujemy dalej całe drzewo, przekazując do węzła-dziekca parametry pomniejszone o zużyty już parametr, oraz odpowiednio odfiltrowane dane (df i kolumn) oraz swoje id, które użyje do nadania sobie id.
     for val in possible_values(df, best_column):
