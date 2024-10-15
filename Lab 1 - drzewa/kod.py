@@ -118,47 +118,58 @@ def build_tree(df, tree, columns, parent=None, parent_id="root"):
         build_tree(filtered_df, tree, remaining_columns, node_id, child_id)
 
 
-def build_tree2(df, tree, columns, parent=None, parent_id="root"):
-
-    # Jeśli decyzja jest 100% pewna, to liść
+def build_tree_with_decision(df, tree, columns, parent=None, parent_id="root"):
+    # Jeżeli mamy pewną decyzję, to dodajemy liść z tą decyzją
     if len(df['Survived'].unique()) == 1:
-        decision = df['Survived'].values[0]
-        tree.create_node(f"{decision}", parent_id, parent=parent)
+        # decision = "Survived" if df['Survived'].values[0] == 1 else "Dead"
+        count_survived = len(df[df['Survived'] == 1])
+        count_dead = len(df[df['Survived'] == 0])
+        if df['Survived'].values[0] == 1:
+            tree.create_node(f"Survived: {count_survived}", parent_id, parent=parent)
+        else:
+            tree.create_node(f"Dead: {count_dead}", parent_id, parent=parent)
         return
 
+    # Liczymy info-gain dla każdego możliwego w tym momencie podziału
     best_gain = 0.0
     best_column = None
-
     for column in columns:
         ig = information_gain(split(df, column))
         if ig > best_gain:
             best_gain = ig
             best_column = column
 
+    # Dodatkowy warunek stopu rekurencji (nigdy nie powinien zajść przy braku sprzecznych danych, ale chroni przed błędami)
     if best_gain == 0 or len(columns) == 0:
+        count_survived = len(df[df['Survived'] == 1])
+        count_dead = len(df[df['Survived'] == 0])
+        # Tworzy liść z wynikiem
+        tree.create_node(f"Survived: ? (Survived: {count_survived}, Dead: {count_dead})", parent_id, parent=parent)
         return
 
+    # kolumnę na podstawię której właśnie dzielimy, usuwamy, przekazując do węzła-dziecka
     remaining_columns = columns.copy()
     remaining_columns.remove(best_column)
-
-
+    # Nadajemy unikalne node_id, składające się z nazwy atrybutu, na podstawie którego dzielimy (best_column), oraz id węzła-rodzica, tak aby zapewnić unikalność w całym drzewie
     node_id = f"{best_column}_{parent_id}"
 
-    tree.create_node(best_column, node_id, parent=parent)
+    # Zliczamy parametry w danym węźle i dodajemy go do drzewa
+    count_survived = len(df[df['Survived'] == 1])
+    count_dead = len(df[df['Survived'] == 0])
+    tree.create_node(f"{best_column} (Survived: {count_survived}, Dead: {count_dead})", node_id, parent=parent)
 
+    # Rekurencyjnie budujemy dalej całe drzewo, przekazując do węzła-dziekca parametry pomniejszone o zużyty już parametr, oraz odpowiednio odfiltrowane dane (df i kolumn) oraz swoje id, które użyje do nadania sobie id.
     for val in possible_values(df, best_column):
         filtered_df = df[df[best_column] == val]
-        child_id = f"{node_id}_{val}"
-        build_tree2(filtered_df, tree, remaining_columns, node_id, child_id)
-
-
+        id_for_child = f"{node_id}_{val}"
+        build_tree_with_decision(filtered_df, tree, remaining_columns, node_id, id_for_child)
 
 
 # Driver code, do testowania
 dane = prepare_pandas_df_for_basic_problem("titanic-homework.csv")
 decision_tree = Tree()
 columns = get_column_names(dane)
-build_tree(dane, decision_tree, columns)
+build_tree_with_decision(dane, decision_tree, columns)
 
 a = decision_tree.show(stdout=False)
 print(a)
