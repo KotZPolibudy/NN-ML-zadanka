@@ -3,10 +3,10 @@ from treelib import Tree
 import pandas
 
 
-def entropy(lista):
+def entropy(dane):
     e = 0
-    suma = sum(lista)
-    for i in lista:
+    suma = sum(dane)
+    for i in dane:
         if i != 0:
             e -= (i / suma) * math.log(i / suma, 2)
     return e
