@@ -1,0 +1,19 @@
+1. Wybrane atrybuty: (8)
+	-reason
+	-failures
+	-higher
+	-Medu
+	-Fedu
+	-schoolsup
+	-internet
+	-absences
+	
+2. Opened.
+
+3.
+F-Measure (F1-score)
+ROC Area
+MCC
+
+Więcej o nich (prosto z czatu, więc nie przeklejajmy tego w sprawko plox, bo to widać XD)
+https://chatgpt.com/share/67165779-1398-8013-994d-c7eced57f82b  <-shared czat
