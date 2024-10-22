@@ -1,0 +1,80 @@
+=== Run information ===
+
+Scheme:       weka.classifiers.misc.InputMappedClassifier -I -trim -W weka.classifiers.trees.J48 -- -B -C 0.05 -M 5
+Relation:     student-merged-weka.filters.unsupervised.attribute.Reorder-R1,2,3,4,5,6,7,8,9,10,11,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,12-weka.filters.unsupervised.attribute.Discretize-D-F-B2-M-1.0-R32-precision6-weka.filters.unsupervised.attribute.Remove-R30-31-weka.filters.unsupervised.attribute.Reorder-R1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,31,30-weka.filters.unsupervised.instance.RemoveRange-V-R1-395-weka.filters.unsupervised.instance.RemoveRange-V-R1-200-weka.filters.unsupervised.attribute.Remove-R1-8,12-13,16-19,22-28,30
+Instances:    200
+Attributes:   9
+              Mjob
+              Fjob
+              reason
+              failures
+              schoolsup
+              higher
+              internet
+              absences
+              G3_1
+Test mode:    user supplied test set:  size unknown (reading incrementally)
+
+=== Classifier model (full training set) ===
+
+InputMappedClassifier:
+
+J48 pruned tree
+------------------
+
+failures <= 1.0
+|   schoolsup = yes: '(-inf-11.5]' (37.0/6.0)
+|   schoolsup != yes
+|   |   Mjob = at_home: '(-inf-11.5]' (15.0/4.0)
+|   |   Mjob != at_home: '(11.5-inf)' (125.0/50.0)
+failures > 1.0: '(-inf-11.5]' (23.0)
+
+Number of Leaves  : 	4
+
+Size of the tree : 	7
+
+Attribute mappings:
+
+Model attributes     	    Incoming attributes
+---------------------	    ----------------
+(nominal) Mjob       	--> 9 (nominal) Mjob
+(nominal) Fjob       	--> 10 (nominal) Fjob
+(nominal) reason     	--> 11 (nominal) reason
+(numeric) failures   	--> 14 (numeric) failures
+(nominal) schoolsup  	--> 15 (nominal) schoolsup
+(nominal) higher     	--> 20 (nominal) higher
+(nominal) internet   	--> 21 (nominal) internet
+(numeric) absences   	--> 29 (numeric) absences
+(nominal) G3_1       	--> 31 (nominal) G3_1
+
+
+Time taken to build model: 0 seconds
+
+=== Evaluation on test set ===
+
+Time taken to test model on supplied test set: 0.25 seconds
+
+=== Summary ===
+
+Correctly Classified Instances          95               48.7179 %
+Incorrectly Classified Instances       100               51.2821 %
+Kappa statistic                          0.0697
+Mean absolute error                      0.4799
+Root mean squared error                  0.5142
+Relative absolute error                 99.0753 %
+Root relative squared error            104.9806 %
+Total Number of Instances              195     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0,288    0,208    0,680      0,288    0,405      0,090    0,545     0,639     '(-inf-11.5]'
+                 0,792    0,712    0,421      0,792    0,550      0,090    0,545     0,418     '(11.5-inf)'
+Weighted Avg.    0,487    0,407    0,578      0,487    0,462      0,090    0,545     0,552     
+
+=== Confusion Matrix ===
+
+  a  b   <-- classified as
+ 34 84 |  a = '(-inf-11.5]'
+ 16 61 |  b = '(11.5-inf)'
+

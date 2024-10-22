@@ -1,0 +1,178 @@
+=== Run information ===
+
+Scheme:       weka.classifiers.trees.J48 -C 0.99 -M 0
+Relation:     student-merged-weka.filters.unsupervised.attribute.Reorder-R1,2,3,4,5,6,7,8,9,10,11,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,12-weka.filters.unsupervised.attribute.Discretize-D-F-B2-M-1.0-R32-precision6-weka.filters.unsupervised.attribute.Remove-R30-31-weka.filters.unsupervised.attribute.Reorder-R1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,31,30-weka.filters.unsupervised.instance.RemoveRange-V-R1-395-weka.filters.unsupervised.instance.RemoveRange-V-R1-200
+Instances:    200
+Attributes:   31
+              school
+              sex
+              age
+              address
+              famsize
+              Pstatus
+              Medu
+              Fedu
+              Mjob
+              Fjob
+              reason
+              traveltime
+              studytime
+              failures
+              schoolsup
+              famsup
+              paid
+              activities
+              nursery
+              higher
+              internet
+              romantic
+              famrel
+              freetime
+              goout
+              Dalc
+              Walc
+              health
+              absences
+              guardian
+              G3_1
+Test mode:    user supplied test set:  size unknown (reading incrementally)
+
+=== Classifier model (full training set) ===
+
+J48 pruned tree
+------------------
+
+failures <= 1
+|   schoolsup = yes
+|   |   studytime <= 1
+|   |   |   Mjob = at_home: '(11.5-inf)' (1.0)
+|   |   |   Mjob = health: '(11.5-inf)' (0.0)
+|   |   |   Mjob = other: '(11.5-inf)' (2.0)
+|   |   |   Mjob = services
+|   |   |   |   reason = course: '(-inf-11.5]' (3.0)
+|   |   |   |   reason = other: '(-inf-11.5]' (1.0)
+|   |   |   |   reason = home: '(11.5-inf)' (1.0)
+|   |   |   |   reason = reputation: '(11.5-inf)' (1.0)
+|   |   |   Mjob = teacher: '(11.5-inf)' (0.0)
+|   |   studytime > 1
+|   |   |   failures <= 0: '(-inf-11.5]' (23.0)
+|   |   |   failures > 0
+|   |   |   |   famsup = no
+|   |   |   |   |   famsize = GT3: '(11.5-inf)' (1.0)
+|   |   |   |   |   famsize = LE3: '(-inf-11.5]' (1.0)
+|   |   |   |   famsup = yes: '(-inf-11.5]' (3.0)
+|   schoolsup = no
+|   |   age <= 16
+|   |   |   sex = F
+|   |   |   |   internet = no: '(-inf-11.5]' (5.0)
+|   |   |   |   internet = yes
+|   |   |   |   |   health <= 1
+|   |   |   |   |   |   reason = course: '(11.5-inf)' (3.0)
+|   |   |   |   |   |   reason = other: '(11.5-inf)' (1.0)
+|   |   |   |   |   |   reason = home: '(-inf-11.5]' (1.0)
+|   |   |   |   |   |   reason = reputation: '(11.5-inf)' (5.0)
+|   |   |   |   |   health > 1
+|   |   |   |   |   |   Mjob = at_home: '(-inf-11.5]' (3.0)
+|   |   |   |   |   |   Mjob = health: '(11.5-inf)' (6.0)
+|   |   |   |   |   |   Mjob = other
+|   |   |   |   |   |   |   address = U
+|   |   |   |   |   |   |   |   Fedu <= 3: '(-inf-11.5]' (10.0)
+|   |   |   |   |   |   |   |   Fedu > 3: '(11.5-inf)' (1.0)
+|   |   |   |   |   |   |   address = R: '(11.5-inf)' (1.0)
+|   |   |   |   |   |   Mjob = services
+|   |   |   |   |   |   |   health <= 4: '(11.5-inf)' (4.0)
+|   |   |   |   |   |   |   health > 4
+|   |   |   |   |   |   |   |   age <= 15: '(-inf-11.5]' (2.0)
+|   |   |   |   |   |   |   |   age > 15
+|   |   |   |   |   |   |   |   |   famsup = no: '(-inf-11.5]' (2.0)
+|   |   |   |   |   |   |   |   |   famsup = yes: '(11.5-inf)' (1.0)
+|   |   |   |   |   |   Mjob = teacher
+|   |   |   |   |   |   |   traveltime <= 1: '(-inf-11.5]' (3.0)
+|   |   |   |   |   |   |   traveltime > 1: '(11.5-inf)' (1.0)
+|   |   |   sex = M
+|   |   |   |   higher = yes
+|   |   |   |   |   absences <= 7
+|   |   |   |   |   |   nursery = yes
+|   |   |   |   |   |   |   reason = course
+|   |   |   |   |   |   |   |   traveltime <= 1
+|   |   |   |   |   |   |   |   |   studytime <= 3: '(11.5-inf)' (11.0)
+|   |   |   |   |   |   |   |   |   studytime > 3: '(-inf-11.5]' (1.0)
+|   |   |   |   |   |   |   |   traveltime > 1: '(-inf-11.5]' (3.0)
+|   |   |   |   |   |   |   reason = other
+|   |   |   |   |   |   |   |   famsize = GT3
+|   |   |   |   |   |   |   |   |   Medu <= 2: '(-inf-11.5]' (1.0)
+|   |   |   |   |   |   |   |   |   Medu > 2: '(11.5-inf)' (3.0)
+|   |   |   |   |   |   |   |   famsize = LE3: '(-inf-11.5]' (1.0)
+|   |   |   |   |   |   |   reason = home
+|   |   |   |   |   |   |   |   famrel <= 4
+|   |   |   |   |   |   |   |   |   romantic = no
+|   |   |   |   |   |   |   |   |   |   Pstatus = A: '(11.5-inf)' (1.0)
+|   |   |   |   |   |   |   |   |   |   Pstatus = T
+|   |   |   |   |   |   |   |   |   |   |   internet = no: '(11.5-inf)' (1.0)
+|   |   |   |   |   |   |   |   |   |   |   internet = yes: '(-inf-11.5]' (4.0)
+|   |   |   |   |   |   |   |   |   romantic = yes: '(11.5-inf)' (3.0)
+|   |   |   |   |   |   |   |   famrel > 4: '(11.5-inf)' (7.0)
+|   |   |   |   |   |   |   reason = reputation: '(11.5-inf)' (12.0)
+|   |   |   |   |   |   nursery = no: '(11.5-inf)' (6.0)
+|   |   |   |   |   absences > 7
+|   |   |   |   |   |   freetime <= 4
+|   |   |   |   |   |   |   guardian = mother
+|   |   |   |   |   |   |   |   Mjob = at_home: '(-inf-11.5]' (0.0)
+|   |   |   |   |   |   |   |   Mjob = health
+|   |   |   |   |   |   |   |   |   age <= 15: '(-inf-11.5]' (1.0)
+|   |   |   |   |   |   |   |   |   age > 15: '(11.5-inf)' (1.0)
+|   |   |   |   |   |   |   |   Mjob = other: '(-inf-11.5]' (0.0)
+|   |   |   |   |   |   |   |   Mjob = services
+|   |   |   |   |   |   |   |   |   address = U: '(11.5-inf)' (1.0)
+|   |   |   |   |   |   |   |   |   address = R: '(-inf-11.5]' (1.0)
+|   |   |   |   |   |   |   |   Mjob = teacher: '(-inf-11.5]' (5.0)
+|   |   |   |   |   |   |   guardian = father: '(-inf-11.5]' (2.0)
+|   |   |   |   |   |   |   guardian = other: '(11.5-inf)' (1.0)
+|   |   |   |   |   |   freetime > 4: '(11.5-inf)' (2.0)
+|   |   |   |   higher = no
+|   |   |   |   |   traveltime <= 1: '(-inf-11.5]' (2.0)
+|   |   |   |   |   traveltime > 1: '(11.5-inf)' (1.0)
+|   |   age > 16
+|   |   |   goout <= 2: '(11.5-inf)' (3.0)
+|   |   |   goout > 2
+|   |   |   |   studytime <= 1
+|   |   |   |   |   higher = yes: '(11.5-inf)' (3.0)
+|   |   |   |   |   higher = no: '(-inf-11.5]' (1.0)
+|   |   |   |   studytime > 1: '(-inf-11.5]' (13.0)
+failures > 1: '(-inf-11.5]' (23.0)
+
+Number of Leaves  : 	58
+
+Size of the tree : 	99
+
+
+Time taken to build model: 0.34 seconds
+
+=== Evaluation on test set ===
+
+Time taken to test model on supplied test set: 0 seconds
+
+=== Summary ===
+
+Correctly Classified Instances          99               50.7692 %
+Incorrectly Classified Instances        96               49.2308 %
+Kappa statistic                         -0.0395
+Mean absolute error                      0.4946
+Root mean squared error                  0.702 
+Relative absolute error                102.1058 %
+Root relative squared error            143.3262 %
+Total Number of Instances              195     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0,610    0,649    0,590      0,610    0,600      -0,040   0,475     0,592     '(-inf-11.5]'
+                 0,351    0,390    0,370      0,351    0,360      -0,040   0,475     0,386     '(11.5-inf)'
+Weighted Avg.    0,508    0,547    0,503      0,508    0,505      -0,040   0,475     0,511     
+
+=== Confusion Matrix ===
+
+  a  b   <-- classified as
+ 72 46 |  a = '(-inf-11.5]'
+ 50 27 |  b = '(11.5-inf)'
+

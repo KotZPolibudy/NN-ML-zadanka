@@ -1,0 +1,38 @@
+1. Wybrane atrybuty: (8)
+	-reason
+	-failures
+	-higher
+	-Medu
+	-Fedu
+	-schoolsup
+	-internet
+	-absences
+	
+2. Opened.
+
+3.
+F-Measure (F1-score)
+ROC Area
+MCC
+
+Więcej o nich (prosto z czatu, więc nie przeklejajmy tego w sprawko plox, bo to widać XD)
+https://chatgpt.com/share/67165779-1398-8013-994d-c7eced57f82b  <-shared czat
+
+4. Dane -> w wyplutych
+
+5. Tak samo.
+
+6. W tym samym folderze, podfolder _por
+
+7. Analiza drzew, idk czy to mam robić czy Ty to zrobisz
+
+8. folder other - jeśli jakiś inny algorytm użyć to daj znać,
+Ten MODLEM to to co *ZDAJE MI SIĘ* że używaliśmy ostatnio, ale pewności nie mam, na pewno NaiveBayes to naiwny Bayes, hahah
+
+
+*zadanie*
+
+for each set of parameters, confusion matrix and values on the metrics
+that you chose as the most accurate,
+• charts that visualize how change of each parameter influences the results,
+• show the decision tree which gives the best results for each situation (chosen attributes on math dataset, all attributes on math dataset, all attributes on Portuguese dataset).
