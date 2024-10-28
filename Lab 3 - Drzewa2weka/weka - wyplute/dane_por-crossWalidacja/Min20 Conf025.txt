@@ -1,0 +1,96 @@
+=== Run information ===
+
+Scheme:       weka.classifiers.trees.J48 -C 0.25 -M 20
+Relation:     student-merged-weka.filters.unsupervised.attribute.Reorder-R1,2,3,4,5,6,7,8,9,10,11,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,12-weka.filters.unsupervised.attribute.Discretize-D-F-B2-M-1.0-R32-precision6-weka.filters.unsupervised.attribute.Remove-R30-31-weka.filters.unsupervised.attribute.Reorder-R1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,31,30-weka.filters.unsupervised.instance.RemoveRange-R1-395
+Instances:    649
+Attributes:   31
+              school
+              sex
+              age
+              address
+              famsize
+              Pstatus
+              Medu
+              Fedu
+              Mjob
+              Fjob
+              reason
+              traveltime
+              studytime
+              failures
+              schoolsup
+              famsup
+              paid
+              activities
+              nursery
+              higher
+              internet
+              romantic
+              famrel
+              freetime
+              goout
+              Dalc
+              Walc
+              health
+              absences
+              guardian
+              G3_1
+Test mode:    10-fold cross-validation
+
+=== Classifier model (full training set) ===
+
+J48 pruned tree
+------------------
+
+failures <= 0
+|   higher = yes
+|   |   school = GP
+|   |   |   Walc <= 3: '(11.5-inf)' (295.0/69.0)
+|   |   |   Walc > 3
+|   |   |   |   activities = no: '(-inf-11.5]' (27.0/11.0)
+|   |   |   |   activities = yes: '(11.5-inf)' (38.0/14.0)
+|   |   school = MS
+|   |   |   studytime <= 2
+|   |   |   |   Walc <= 2
+|   |   |   |   |   Mjob = at_home: '(-inf-11.5]' (21.0/7.0)
+|   |   |   |   |   Mjob = health: '(-inf-11.5]' (7.0/3.0)
+|   |   |   |   |   Mjob = other: '(11.5-inf)' (34.0/13.0)
+|   |   |   |   |   Mjob = services: '(11.5-inf)' (11.0/2.0)
+|   |   |   |   |   Mjob = teacher: '(-inf-11.5]' (6.0/3.0)
+|   |   |   |   Walc > 2: '(-inf-11.5]' (50.0/13.0)
+|   |   |   studytime > 2: '(11.5-inf)' (24.0/5.0)
+|   higher = no: '(-inf-11.5]' (36.0/5.0)
+failures > 0: '(-inf-11.5]' (100.0/7.0)
+
+Number of Leaves  : 	12
+
+Size of the tree : 	20
+
+
+Time taken to build model: 0.02 seconds
+
+=== Stratified cross-validation ===
+=== Summary ===
+
+Correctly Classified Instances         458               70.5701 %
+Incorrectly Classified Instances       191               29.4299 %
+Kappa statistic                          0.3982
+Mean absolute error                      0.3656
+Root mean squared error                  0.4429
+Relative absolute error                 73.4956 %
+Root relative squared error             88.8174 %
+Total Number of Instances              649     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0,558    0,167    0,743      0,558    0,638      0,410    0,753     0,749     '(-inf-11.5]'
+                 0,833    0,442    0,686      0,833    0,752      0,410    0,753     0,702     '(11.5-inf)'
+Weighted Avg.    0,706    0,314    0,712      0,706    0,699      0,410    0,753     0,724     
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+ 168 133 |   a = '(-inf-11.5]'
+  58 290 |   b = '(11.5-inf)'
+
