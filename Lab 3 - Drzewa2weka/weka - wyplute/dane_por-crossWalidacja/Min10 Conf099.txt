@@ -1,0 +1,123 @@
+=== Run information ===
+
+Scheme:       weka.classifiers.trees.J48 -C 0.99 -M 10
+Relation:     student-merged-weka.filters.unsupervised.attribute.Reorder-R1,2,3,4,5,6,7,8,9,10,11,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,12-weka.filters.unsupervised.attribute.Discretize-D-F-B2-M-1.0-R32-precision6-weka.filters.unsupervised.attribute.Remove-R30-31-weka.filters.unsupervised.attribute.Reorder-R1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,31,30-weka.filters.unsupervised.instance.RemoveRange-R1-395
+Instances:    649
+Attributes:   31
+              school
+              sex
+              age
+              address
+              famsize
+              Pstatus
+              Medu
+              Fedu
+              Mjob
+              Fjob
+              reason
+              traveltime
+              studytime
+              failures
+              schoolsup
+              famsup
+              paid
+              activities
+              nursery
+              higher
+              internet
+              romantic
+              famrel
+              freetime
+              goout
+              Dalc
+              Walc
+              health
+              absences
+              guardian
+              G3_1
+Test mode:    10-fold cross-validation
+
+=== Classifier model (full training set) ===
+
+J48 pruned tree
+------------------
+
+failures <= 0
+|   higher = yes
+|   |   school = GP
+|   |   |   schoolsup = yes
+|   |   |   |   Fjob = teacher: '(11.5-inf)' (7.0/2.0)
+|   |   |   |   Fjob = other
+|   |   |   |   |   goout <= 2: '(-inf-11.5]' (11.0/4.0)
+|   |   |   |   |   goout > 2: '(11.5-inf)' (12.0/4.0)
+|   |   |   |   Fjob = services: '(-inf-11.5]' (12.0/4.0)
+|   |   |   |   Fjob = health: '(-inf-11.5]' (4.0/2.0)
+|   |   |   |   Fjob = at_home: '(11.5-inf)' (2.0)
+|   |   |   schoolsup = no
+|   |   |   |   Walc <= 3
+|   |   |   |   |   internet = no
+|   |   |   |   |   |   romantic = no: '(11.5-inf)' (26.0/6.0)
+|   |   |   |   |   |   romantic = yes: '(-inf-11.5]' (10.0/4.0)
+|   |   |   |   |   internet = yes
+|   |   |   |   |   |   Fedu <= 1
+|   |   |   |   |   |   |   freetime <= 3: '(11.5-inf)' (30.0/6.0)
+|   |   |   |   |   |   |   freetime > 3: '(-inf-11.5]' (11.0/4.0)
+|   |   |   |   |   |   Fedu > 1
+|   |   |   |   |   |   |   nursery = yes
+|   |   |   |   |   |   |   |   Pstatus = A: '(11.5-inf)' (16.0)
+|   |   |   |   |   |   |   |   Pstatus = T
+|   |   |   |   |   |   |   |   |   guardian = mother
+|   |   |   |   |   |   |   |   |   |   famrel <= 3: '(11.5-inf)' (12.0/5.0)
+|   |   |   |   |   |   |   |   |   |   famrel > 3
+|   |   |   |   |   |   |   |   |   |   |   health <= 4
+|   |   |   |   |   |   |   |   |   |   |   |   Fjob = teacher: '(-inf-11.5]' (1.0)
+|   |   |   |   |   |   |   |   |   |   |   |   Fjob = other: '(11.5-inf)' (26.0/2.0)
+|   |   |   |   |   |   |   |   |   |   |   |   Fjob = services: '(11.5-inf)' (18.0/1.0)
+|   |   |   |   |   |   |   |   |   |   |   |   Fjob = health: '(11.5-inf)' (4.0)
+|   |   |   |   |   |   |   |   |   |   |   |   Fjob = at_home: '(11.5-inf)' (2.0)
+|   |   |   |   |   |   |   |   |   |   |   health > 4: '(11.5-inf)' (31.0/8.0)
+|   |   |   |   |   |   |   |   |   guardian = father: '(11.5-inf)' (34.0/1.0)
+|   |   |   |   |   |   |   |   |   guardian = other: '(11.5-inf)' (5.0)
+|   |   |   |   |   |   |   nursery = no: '(11.5-inf)' (28.0/7.0)
+|   |   |   |   Walc > 3
+|   |   |   |   |   Fjob = teacher: '(11.5-inf)' (2.0)
+|   |   |   |   |   Fjob = other
+|   |   |   |   |   |   Dalc <= 1: '(11.5-inf)' (12.0/3.0)
+|   |   |   |   |   |   Dalc > 1
+|   |   |   |   |   |   |   health <= 4: '(11.5-inf)' (11.0/4.0)
+|   |   |   |   |   |   |   health > 4: '(-inf-11.5]' (14.0/3.0)
+|   |   |   |   |   Fjob = services: '(11.5-inf)' (16.0/5.0)
+|   |   |   |   |   Fjob = health: '(-inf-11.5]' (3.0)
+|   |   |   |   |   Fjob = at_home: '(11.5-inf)' (0.0)
+|   |   school = MS
+|   |   |   studytime <= 2
+|   |   |   |   Walc <= 2
+|   |   |   |   |   health <= 1: '(11.5-inf)' (17.0/3.0)
+|   |   |   |   |   health > 1
+|   |   |   |   |   |   Mjob = at_home: '(-inf-11.5]' (17.0/4.0)
+|   |   |   |   |   |   Mjob = health: '(-inf-11.5]' (7.0/3.0)
+|   |   |   |   |   |   Mjob = other
+|   |   |   |   |   |   |   guardian = mother: '(-inf-11.5]' (15.0/6.0)
+|   |   |   |   |   |   |   guardian = father: '(11.5-inf)' (11.0/3.0)
+|   |   |   |   |   |   |   guardian = other: '(11.5-inf)' (0.0)
+|   |   |   |   |   |   Mjob = services: '(11.5-inf)' (9.0/2.0)
+|   |   |   |   |   |   Mjob = teacher: '(-inf-11.5]' (3.0/1.0)
+|   |   |   |   Walc > 2
+|   |   |   |   |   Medu <= 3: '(-inf-11.5]' (40.0/6.0)
+|   |   |   |   |   Medu > 3: '(11.5-inf)' (10.0/3.0)
+|   |   |   studytime > 2: '(11.5-inf)' (24.0/5.0)
+|   higher = no: '(-inf-11.5]' (36.0/5.0)
+failures > 0
+|   Fjob = teacher: '(11.5-inf)' (1.0)
+|   Fjob = other: '(-inf-11.5]' (60.0/3.0)
+|   Fjob = services: '(-inf-11.5]' (29.0)
+|   Fjob = health: '(11.5-inf)' (1.0)
+|   Fjob = at_home: '(-inf-11.5]' (9.0/2.0)
+
+Number of Leaves  : 	45
+
+Size of the tree : 	72
+
+
+Time taken to build model: 0.45 seconds
+
