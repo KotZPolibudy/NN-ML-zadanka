@@ -76,7 +76,7 @@ Number of Leaves  : 	18
 Size of the tree : 	29
 
 
-Time taken to build model: 0.18 seconds
+Time taken to build model: 0.09 seconds
 
 === Stratified cross-validation ===
 === Summary ===
