@@ -160,5 +160,30 @@ Number of Leaves  : 	69
 Size of the tree : 	113
 
 
-Time taken to build model: 0.85 seconds
+Time taken to build model: 0.65 seconds
+
+=== Stratified cross-validation ===
+=== Summary ===
+
+Correctly Classified Instances         426               65.6394 %
+Incorrectly Classified Instances       223               34.3606 %
+Kappa statistic                          0.3099
+Mean absolute error                      0.3501
+Root mean squared error                  0.5043
+Relative absolute error                 70.3818 %
+Root relative squared error            101.115  %
+Total Number of Instances              649     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0,638    0,328    0,627      0,638    0,633      0,310    0,719     0,680     '(-inf-11.5]'
+                 0,672    0,362    0,682      0,672    0,677      0,310    0,719     0,697     '(11.5-inf)'
+Weighted Avg.    0,656    0,346    0,657      0,656    0,657      0,310    0,719     0,689     
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+ 192 109 |   a = '(-inf-11.5]'
+ 114 234 |   b = '(11.5-inf)'
 
